@@ -125,7 +125,7 @@ QuickFramelessWindow {
                     Rectangle {
                         anchors.fill: parent
                         radius: 7
-                        color: Qt.color("#2196F3")
+                        color: Qt.color("#f3f5f7")
                         RowLayout {
                             spacing: 8
                             anchors {
@@ -149,7 +149,7 @@ QuickFramelessWindow {
                                     id: name
                                     text: file_delegate.fileName
                                     font.pixelSize: 12
-                                    color: "white"
+                                    color: "black"
                                 }
                                 Row {
                                     spacing: 8
@@ -157,15 +157,30 @@ QuickFramelessWindow {
                                         id: size_
                                         text: file_delegate.fileSize
                                         font.pixelSize: 11
-                                        color: "white"
-                                    }
-                                    ProgressBar {
-                                        id: progress_bar
-                                        width: 120
-                                        from: 0
-                                        to: 100
+                                        color: "black"
                                         anchors.verticalCenter: parent.verticalCenter
-                                        height: 5
+                                    }
+
+                                    Rectangle {
+                                        width: 160
+                                        height: 4
+                                        radius: 2
+                                        color: "white"
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        Rectangle {
+                                            id: progress_bar
+                                            property real value: 0.0
+                                            height: parent.height
+                                            radius: parent.radius
+                                            width: parent.width * value
+                                            color: "#0747d3"
+                                            Behavior on width {
+                                                NumberAnimation {
+                                                    duration: 200
+                                                    easing.type: Easing.OutCubic
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }

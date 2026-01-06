@@ -1,0 +1,20 @@
+CompileFlags:
+      Add :
+            - "-std=c++17"
+            - "-ID:/AppData/Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include"
+            - "-ID:/kotomi/3rdparty/vcpkg/installed/x64-windows/include"
+
+
+# Diagnostics:
+#   ClangTidy:
+#     Add: ["cppcoreguidelines-*", "modernize-*", "performance-*"]
+#     Remove: ["clang-analyzer-*"]
+
+# InlayHints:
+#   Enabled: true
+#   ParameterNames: true
+#   DeducedTypes: true
+#   Designators: true
+
+# Completion:
+#   AllScopes: true

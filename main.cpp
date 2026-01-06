@@ -2,18 +2,20 @@
 #include <QFile>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-int main (int argc, char *argv[])
-{
-  QGuiApplication app (argc, argv);
+#include <QSharedPointer>
+#include <QVector>
+int main(int argc, char *argv[]) {
+  QGuiApplication app(argc, argv);
 
-  TcpManager::instance ().create_thread ("127.0.0.1", 8888);
+  TcpManager::instance()->create_thread("127.0.0.1", 50060);
 
-  qInfo () << "主线程" << QThread::currentThreadId ();
+  QObject::connect(&app, &QGuiApplication::aboutToQuit, &app,
+                   []() { TcpManager::instance()->stop(); });
   QQmlApplicationEngine engine;
-  QObject::connect (
+  QObject::connect(
       &engine, &QQmlApplicationEngine::objectCreationFailed, &app,
-      [] () { QCoreApplication::exit (-1); }, Qt::QueuedConnection);
-  engine.loadFromModule ("file_upload", "Main");
+      []() { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
+  engine.loadFromModule("file_upload", "Main");
 
-  return app.exec ();
+  return app.exec();
 }

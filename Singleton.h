@@ -2,19 +2,24 @@
 #define SINGLETON_H
 
 #include <QObject>
-template <typename T> class Singleton
-{
-  Q_DISABLE_COPY_MOVE (Singleton);
+#include <memory>
+#include <mutex>
+template <typename T> class Singleton {
+  Q_DISABLE_COPY_MOVE(Singleton);
+
+  static std::shared_ptr<T> m_instnace;
 
 public:
-  static T &instance ()
-  {
-    static T t;
-    return t;
+  static std::shared_ptr<T> instance() {
+    static std::once_flag flag;
+    std::call_once(flag, []() { m_instnace = std::shared_ptr<T>(new T); });
+    return m_instnace;
   }
 
 protected:
-  explicit Singleton () = default;
+  explicit Singleton() = default;
 };
+
+template <typename T> std ::shared_ptr<T> Singleton<T>::m_instnace = nullptr;
 
 #endif // SINGLETON_H

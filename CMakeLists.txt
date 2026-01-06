@@ -27,6 +27,7 @@ qt_add_qml_module(appfile_upload
         SOURCES FileWork.h FileWork.cpp
         SOURCES Constants.h
         SOURCES Singleton.h
+        SOURCES SenderQueue.h SenderQueue.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -37,7 +38,7 @@ set_target_properties(appfile_upload PROPERTIES
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
-    WIN32_EXECUTABLE TRUE
+    WIN32_EXECUTABLE FALSE
 )
 
 target_link_libraries(appfile_upload
